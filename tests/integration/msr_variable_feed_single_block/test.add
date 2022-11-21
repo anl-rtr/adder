@@ -1,0 +1,62 @@
+case_name = test
+neutronics_solver = test
+neutronics_exec = test
+num_threads = 1
+neutronics_input_file = test.inp
+depletion_solver = msr16
+depletion_library_file = test.h5 
+depletion_library_name = test 
+depletion_substeps = 1
+output_hdf5 = results.h5
+
+[materials]
+  [[metadata]]
+      [[[item_1]]]
+        neutronics_id = 1
+        volume = 3600.
+      [[[item_2]]]
+        neutronics_id = 2
+        volume = 1.
+
+[msr]
+    solve_method = tmatrix
+    flux_smoothing_method = histogram
+    [[system_1]]
+        name = system_1
+        flow_start = comp 1
+        flowrate = 10.
+        [[[feed]]]
+            feed_rate = 1e22, 1e22, 1e22
+            feed_material = f2, f1, (f1 f2)
+            feed_mixture = 1, 1, (1 1) 
+	        feed_rate_units = atoms/sec
+            density = 10. , 10. , 10.
+            vector_units = ao
+            [[[[material_f1]]]]
+                names = I135
+                vector = 1
+            [[[[material_f2]]]]
+                names = U235, I135
+                vector = 0.5, 0.5
+        [[[component_1]]]
+            type = in-core
+            name = comp 1
+            mat_name = 1
+            volume = 3.6
+            downstream_components = comp 2
+            downstream_mass_fractions = 1.
+        [[[component_2]]]
+            type = generic
+            name = comp 2
+            density = 390.29961897485384
+            volume = 3.6
+            downstream_components = comp 1
+            downstream_mass_fractions = 1.
+
+[operations]
+    [[state 1]]
+        label = msr
+        [[[deplete]]]
+	        fluxes = 0, 0, 0
+            durations = 16.262484123952245, 16.262484123952245, 16.262484123952245
+            depletion_method = predictor

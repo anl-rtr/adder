@@ -1,0 +1,43 @@
+case_name = IHM Depletion
+neutronics_solver = "test"
+neutronics_exec = test
+num_threads = 1
+neutronics_library_file = "/mnt/c/share_with_ubuntu/mcnp6.2/MCNP_DATA/xsdir"
+neutronics_input_file = ihm.inp
+depletion_solver = msr
+depletion_library_file = test.h5
+depletion_library_name = test
+depletion_substeps = 1
+output_hdf5 = results.h5
+
+[msr]
+    solve_method = tmatrix
+    flux_smoothing_method = "histogram"
+    [[system_1]]
+        name = "system_1"
+        flow_start = "comp 1"
+        flowrate = 1.
+        [[[component_1]]]
+            type = in-core
+            name = "comp 1"
+            mat_name = 1
+            # Volume chosen to yield 30 sec residence time
+            volume = 7.686402584454696e-05
+            downstream_components = "comp 2"
+            downstream_mass_fractions = 1.
+        [[[component_2]]]
+            type = generic
+            name = "comp 2"
+            # Volume and density chosen to yield 30 sec residence time
+            density = 1.
+            volume = 0.03
+            downstream_components = "comp 1"
+            downstream_mass_fractions = 1.
+
+[operations]
+    [[state 1]]
+        label = "msr"
+        [[[deplete]]]
+            powers = 10.
+            durations = 0.006944444
+            depletion_method = predictor

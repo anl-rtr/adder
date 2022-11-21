@@ -1,0 +1,117 @@
+case_name = 2x2x2 small case
+neutronics_solver = "MCNP"
+neutronics_exec = mcnp.EXE
+num_threads = 8
+neutronics_input_file = test.inp
+neutronics_library_file = ./xsdir
+depletion_solver = ORIGEN2.2
+depletion_exec = origen2.EXE
+depletion_library_file = test.h5
+depletion_library_name = test
+depletion_substeps = 14
+output_hdf5 = results.h5
+
+[materials]
+    [[metadata]]
+        [[[range_1]]]
+            neutronics_id_start = 11
+            neutronics_id_end = 12
+            depleting = True
+
+        [[[list_1]]]
+            neutronics_ids = 21, 22, 31, 32, 41, 42
+            names = 21, 22, 31, 32, 41, 42
+
+
+        [[[item_1]]]
+              neutronics_id = 51
+              name = 51
+              non_depleting_isotopes = "O16"
+              density = 5.1
+
+        [[[list_2]]]
+            neutronics_ids = 61, 62
+            densities = 6.1, 6.2  # 1 atoms/b-cm
+
+    [[storage]]
+        [[[redefine]]]
+            [[[[list_1]]]]
+                neutronics_ids = 61
+            [[[[range 1]]]]
+                neutronics_id_start = 62
+                neutronics_id_end = 63
+                exclude_neutronics_ids = 63
+
+    [[aliases]]
+        [[[top_left]]]
+        set = 11, 12
+
+        [[[alias 1]]]
+        name = "top_right"
+        set = 21, 22
+
+        [[[alias 3]]]
+        name = "fresh"
+        set = 51
+
+        [[[alias 4]]]
+        name = "fresh_tall"
+        set = 61, 62
+
+[operations]
+    [[state 1]]
+        label = "Cycle 1"
+        [[[write_input_1]]]
+            filename = "state1.inp"
+    [[state 2]]
+        label = "Cycle 2"
+        [[[shuffle_1]]]
+            type = "material"
+            moves = fresh, 42
+        [[[shuffle_2]]]
+          moves = top_left, top_right
+        [[[write_input]]]
+            filename = "state2.inp"
+    [[state 3]]
+        label = "Cycle 3"
+        [[[shuffle]]]
+          moves = fresh_tall, top_right
+        [[[write_input]]]
+            filename = "state3.inp"
+    [[state 4]]
+        label = "Cycle 4"
+        [[[shuffle_doesntneedanumber]]]
+            type = "material"
+            moves = fresh, fresh[1], 41
+        [[[write_input]]]
+            filename = "state4.inp"
+    [[Cycle 5]]
+        [[[revolve_1]]]
+           set = 62, 12, 32, fresh[2], 61, 11, 31, fresh[1]
+           shape = 2, 2, 2
+           xy_degrees = 90
+           z_flip = True
+        [[[write_input_1]]]
+            filename = "state5.inp"
+        [[[revolve_2]]]
+           set = 62, 12
+           shape = 1, 1, 2
+           xy_degrees = 180
+           z_flip = False
+        [[[write_input_2]]]
+            filename = "state6.inp"
+    [[Cycle 6]]
+        [[[transform]]]
+           set = 11, 12, 21, 22, 31, 32, 42
+           type = cell
+           yaw = 90
+           angle_units = degrees
+        [[[write_input]]]
+            filename = "state7.inp"
+        [[[transform_2]]]
+           set = 11
+           type = cell
+           matrix = 0.,  1.,  0., -1.,  0.,  0., 0.,  0.,  1.
+           angle_units = degrees
+        [[[write_input_2]]]
+            filename = "state8.inp"

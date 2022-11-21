@@ -1,0 +1,29 @@
+mat 1
+# data \ time [d]
+case_label, msr, msr, 
+operation_label, deplete, deplete, 
+step_idx, 1, 2, 
+times, 0.000000E+00, 6.944444E-03, 
+powers, 1.000000E+01, 1.000000E+01, 
+keffs, 2.000000E+00, 2.000000E+00, 
+keffs_stddev, 1.000000E-02, 1.000000E-02, 
+fluxes_1grp, 5.569982E+17, 5.569982E+17, 
+Q_recs, 2.017011E+02, 2.017011E+02, 
+I134, 0.000000E+00, 2.005026E+20, 
+I135, 0.000000E+00, 1.336684E+20, 
+U235, 1.000000E+24, 9.998329E+23, 
+
+mat 2
+# data \ time [d]
+case_label, msr, msr, 
+operation_label, deplete, deplete, 
+step_idx, 1, 2, 
+times, 0.000000E+00, 6.944444E-03, 
+powers, 1.000000E+01, 1.000000E+01, 
+keffs, 2.000000E+00, 2.000000E+00, 
+keffs_stddev, 1.000000E-02, 1.000000E-02, 
+fluxes_1grp, 2.475547E+17, 2.475547E+17, 
+Q_recs, 2.017011E+02, 2.017011E+02, 
+I134, 0.000000E+00, 1.782262E+20, 
+I135, 0.000000E+00, 1.188174E+20, 
+U235, 1.000000E+24, 9.998515E+23, 

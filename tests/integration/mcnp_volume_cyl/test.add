@@ -1,0 +1,34 @@
+case_name = pincell
+neutronics_solver = "MCNP"
+neutronics_exec = mcnp.EXE
+num_threads = 4
+neutronics_library_file = ./xsdir
+neutronics_input_file = test.inp
+depletion_solver = ORIGEN2.2
+depletion_exec = origen2.EXE
+depletion_library_file = test.h5
+depletion_library_name = test
+depletion_substeps = 14
+output_hdf5 = results.h5
+depletion_method = cecm
+use_depletion_library_xs = False
+
+[materials]
+    [[metadata]]
+        [[[item]]]
+            # Set one material's volume to be
+            neutronics_id = 4
+            volume = 1.
+
+[operations]
+    [[state 1]]
+       label = volume
+       [[[calc_volume]]]
+            cylinder_bottom = 0., 0., -0.95
+            cylinder_height = 1.9
+            cylinder_radius = 0.9
+            maximum_histories = 10000000
+            # set target unc low enough to get 2 generations
+            target_uncertainty = 0.13
+       [[[write_input_1]]]
+            filename = "state1.inp"

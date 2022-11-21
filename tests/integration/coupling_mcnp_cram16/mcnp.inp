@@ -1,0 +1,36 @@
+Simple IHM problem
+c
+c Define cells
+c
+1 1 2.0 1 -2 11 -12 21 -22 u=0 imp:n=1 $ Bottom left
+c
+c Define the model periphery
+99 0 -1:2:-11:12:-21:22           imp:n=0 $ Exterior
+
+c
+c Define surfaces
+c
+*1  px  0.
+*2  px 10.
+*11 py  0.
+*12 py 10.
+*21 pz  0.
+*22 pz 10.
+
+c
+c Define Materials
+c
+m0 nlib=99m
+m1  92235  1.0 53134 0.
+c
+c Set run parameters
+c
+mgopt F 1
+kcode 1000 1.0 5 35
+sdef  x=d1 y=d2 z=d3 erg=2
+si1    0 10
+sp1    0  1
+si2    0 10
+sp2    0  1
+si3    0 10
+sp3    0  1

@@ -1,0 +1,49 @@
+case_name = IHM Case
+neutronics_solver = "mcnp"
+neutronics_exec = mcnp.EXE
+num_threads = 4
+neutronics_input_file = test.inp
+neutronics_library_file = ./xsdir
+depletion_solver = cram16
+depletion_library_file = test.h5
+depletion_library_name = test
+output_hdf5 = results.h5
+use_depletion_library_xs = True
+depletion_method = predictor
+
+[materials]
+    [[metadata]]
+        [[[range_1]]]
+            neutronics_id_start = 1
+            neutronics_id_end = 2
+            depleting = True
+            use_default_depletion_library = True
+
+    [[storage]]
+        [[[copy]]]
+            [[[[item]]]]
+                neutronics_id = 2
+                name = 3
+
+[operations]
+    [[state 0]]
+        label = "Cycle 1"
+        [[[deplete_1]]]
+            fluxes = 1.e15
+            durations = 1
+    [[state 1]]
+        label = "Cycle 2"
+        [[[shuffle]]]
+            type="material"
+            moves=3, 1
+        [[[deplete]]]
+            fluxes = 1.e15
+            durations = 1
+    [[state 2]]
+        label = "Cycle 3"
+        [[[shuffle]]]
+            type="material"
+            moves=2, 3
+        [[[deplete]]]
+            fluxes = 1e15
+            durations = 1

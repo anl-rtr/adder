@@ -1,0 +1,85 @@
+case_name = 2x2x2 lattice small case
+neutronics_solver = "MCNP"
+neutronics_exec = mcnp.EXE
+num_neutronics_threads = 2
+num_depletion_threads = 4
+depletion_chunksize = 100
+neutronics_input_file = test.inp
+neutronics_library_file = ./xsdir
+depletion_solver = ORIGEN2.2
+depletion_exec = origen2.EXE
+depletion_library_file = test.h5
+depletion_library_name = test
+depletion_substeps = 14
+output_hdf5 = results.h5
+use_depletion_library_xs = False
+
+[materials]
+    [[metadata]]
+        [[[range_1]]]
+            neutronics_id_start = 11
+            neutronics_id_end = 12
+            depleting = True
+
+        [[[list_1]]]
+            neutronics_ids = 21, 22, 31, 32, 41, 42
+            names = 21, 22, 31, 32, 41, 42
+            use_default_depletion_library = True
+
+
+        [[[item_1]]]
+              neutronics_id = 51
+              name = 51
+              non_depleting_isotopes = "O16"
+              density = 5.1
+              use_default_depletion_library = True
+
+        [[[list_2]]]
+            neutronics_ids = 61, 62
+            densities = 6.1, 6.2  # 1 atoms/b-cm
+            use_default_depletion_library = True
+
+    [[storage]]
+        [[[redefine]]]
+            [[[[list_1]]]]
+                neutronics_ids = 61
+            [[[[range 1]]]]
+                neutronics_id_start = 62
+                neutronics_id_end = 63
+                exclude_neutronics_ids = 63
+
+[operations]
+    [[state 0]]
+        label = "Cycle 0"
+        [[[write_input_0]]]
+            filename = "state0.inp"
+    [[state 1]]
+        label = "Cycle 1"
+        [[[deplete_1]]]
+            powers = 1000.0, 1000.0
+            durations = 100, 100
+            depletion_method = predictor
+        [[[write_input_1]]]
+            filename = "state1.inp"
+    [[state 2]]
+        label = "Cycle 2"
+        [[[deplete]]]
+            powers = 1000.0, 2000.0
+            durations = 100, 100
+            depletion_method = cecm
+        [[[write_input_2]]]
+            filename = "state2.inp"
+    [[state 3]]
+        label = "End of Cycle 2"
+        [[[write_input_3]]]
+            filename = "state3.inp"
+            include_user_tallies = False
+            include_adder_tallies = False
+        [[[write_depletion_lib]]]
+            filename = "output_depletion.h5"
+            materials = 11, 12, 21
+            lib_names = 1, None, "hi"
+            mode = "w"
+        [[[write_depletion_lib_all]]]
+            filename = "output_all_modified.h5"
+            materials = all_modified

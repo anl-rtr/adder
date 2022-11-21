@@ -1,0 +1,49 @@
+case_name = Fuel Plate Lattice
+neutronics_solver = "MCNP"
+neutronics_exec = mcnp.EXE
+num_neutronics_threads = 3
+num_depletion_threads = 6
+neutronics_input_file = test.inp
+neutronics_library_file = ./xsdir
+depletion_solver = cram48
+depletion_library_file = test.h5
+depletion_library_name = test
+depletion_substeps = 14
+output_hdf5 = results.h5
+use_depletion_library_xs = False
+
+[materials]
+	[[metadata]]
+		[[[item Water]]]
+			neutronics_id = 1
+			name = Water
+			depleting = False
+		[[[item Fuel_Plates_Upper]]]
+			neutronics_id = 2
+			name = Fuel_Plates_Upper
+			depleting = True
+			volume = 2.4
+		[[[item Fuel_Plates_Lower]]]
+			neutronics_id = 3
+			name = Fuel_Plates_Lower
+			depleting = True
+			volume = 3.6
+
+[universes]
+	[[metadata]]
+		[[[item]]]
+				neutronics_id = 1000
+				name = Original_Element
+	[[supply]]
+		[[[copy]]]
+			[[[[item 1]]]]
+				neutronics_id = 1000
+				name = Supply_Element
+
+[operations]
+	[[state 0]]
+		[[[shuffle]]]
+			type = universe
+			moves = Supply_Element, Original_Element
+		[[[write_input_0]]]
+            filename = "state0.inp"

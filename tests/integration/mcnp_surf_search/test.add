@@ -1,0 +1,38 @@
+
+case_name = CR search
+neutronics_solver = "MCNP"
+neutronics_exec = mcnp.EXE
+num_threads = 4
+neutronics_library_file = ./xsdir
+neutronics_input_file = test.inp
+depletion_solver = cram16
+depletion_library_file = test.h5
+depletion_library_name = test
+depletion_substeps = 14
+output_hdf5 = results.h5
+depletion_method = cecm
+use_depletion_library_xs = False
+
+[control_groups]
+    [[bank_1]]
+        type = surface
+        set = 11
+        axis = z
+
+[operations]
+    [[state 1]]
+        label = first_search
+        [[[geometry_search_1]]]
+            group_name = bank_1
+            k_target = 1.0
+            target_interval = 0.001
+            bracket_interval = 0., 20.
+            uncertainty_factor = 0.5
+    [[state 2]]
+        label = second_search
+        [[[geometry_search_1]]]
+            group_name = bank_1
+            k_target = 0.9
+            target_interval = 0.001
+            bracket_interval = 0., 20.
+            min_active_batches = 10

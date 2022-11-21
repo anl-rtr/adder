@@ -1,0 +1,33 @@
+case_name = 2x2x2 lattice small case
+neutronics_solver = "test"
+neutronics_exec = test
+num_threads = 1
+neutronics_input_file = test.inp
+depletion_solver = ORIGEN2.2
+depletion_exec = origen2.EXE
+depletion_library_file = test.h5
+depletion_library_name = test
+depletion_substeps = 4
+output_hdf5 = results.h5
+
+[materials]
+  [[metadata]]
+   [[[item]]]
+    neutronics_id = 2
+    non_depleting_isotopes = U235
+
+[operations]
+  [[state 1]]
+    label = "Depletion"
+    [[[deplete]]]
+        fluxes = 1.e15
+        durations = 1000.
+        depletion_method = predictor
+        execute_endpoint = False
+  [[state 2]]
+    label = "Depletion 2"
+    [[[deplete]]]
+        fluxes = 1.e15
+        durations = 1000.
+        depletion_method = predictor
+        execute_endpoint = True
