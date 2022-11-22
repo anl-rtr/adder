@@ -241,7 +241,7 @@ The ADDER software is distributed with a few utility scripts, included in the
 ********
 Contacts
 ********
-For inquiries about the ADDER software please reach out to Justin Thomas (jthomas@anl.gov). 
+For inquiries about the ADDER software please reach out to our development team at adder@anl.gov. 
 
 
 **********
