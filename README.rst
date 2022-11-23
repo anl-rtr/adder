@@ -243,6 +243,13 @@ Contacts
 ********
 For inquiries about the ADDER software please reach out to our development team at adder@anl.gov. 
 
+************
+Citing ADDER
+************
+If you use ADDER for your work, please cite the following reference:
+Anderson, K., Mascolino, V., and Nelson, A. G.. 2022. "User Guide to the 
+Advanced Dimensional Depletion for Engineering of Reactors (ADDER) Software". 
+United States. <https://doi.org/10.2172/1866062>. <https://www.osti.gov/servlets/purl/1866062>.
 
 **********
 References
