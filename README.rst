@@ -25,7 +25,10 @@ functionality or an internal Chebyshev rational approximation method (CRAM_)
 solver.
 
 This README file provides a primer for the ADDER software. The complete 
-software manual is located in the ``Documents`` folder of this repository.
+software manual is located in the ``Documents`` folder of this repository. 
+A list of known bugs is included in the main folder of the repository:
+users are encourage to read and understand this list before starting to
+use the software.
 
 ****************
 Installing ADDER
