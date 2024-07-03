@@ -240,11 +240,17 @@ The ADDER software is distributed with a few utility scripts, included in the
 	by ADDER, the path to the desired output ``.csv`` file, and the name of the 
 	required material. Additional information can be found in Section 3.1 of the manual.
 
+****************
+Release Schedule
+****************
+ADDER v.1.1.0 is currently scheduled to release at the end of August 2024. Dates are subject to change.
 
 ********
 Contacts
 ********
-For inquiries about the ADDER software please reach out to our development team at adder@anl.gov. 
+For inquiries about the ADDER software please reach out to our development team at adder@anl.gov.
+Please contact us to be added to the list of known users and receive notifications concerning errors and
+bugs as they are discovered, as well as updates on new versions releases.
 
 ************
 Citing ADDER
